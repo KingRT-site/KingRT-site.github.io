@@ -213,10 +213,43 @@
 <script>
 // ------------------- تنظیمات GitHub -------------------
 // ریپوی عمومی بسازید تا پیگیری بدون توکن کار کند.
-const GH_USER = "KingRT-site";
-const GH_REPO = "orders-db"; // ریپویی که سفارش‌ها داخل Issues ذخیره شوند
-const GH_TOKEN = "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"; // ⚠️ برای تست؛ در عمل امن نیست که در کلاینت بگذارید.
-const GH_API_ISSUES = `https://api.github.com/repos/${GH_USER}/${GH_REPO}/issues`;
+const GH_USER = "KingRT-site"; // یوزرنیم خودت
+const SITE_REPO = "kingrt-site.github.io"; // ریپوی سایت
+const GH_TOKEN = "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"; // 👈 توکنی که به صورت Secret گذاشتی
+
+el("orderForm").addEventListener("submit", async e => {
+  e.preventDefault();
+
+  const opt = productSel.selectedOptions[0];
+  const username = el("username").value;
+
+  const payload = {
+    event_type: "new-order",
+    client_payload: {
+      username: username,
+      product: opt.text,
+      price: opt.dataset.price
+    }
+  };
+
+  const res = await fetch(`https://api.github.com/repos/${GH_USER}/${SITE_REPO}/dispatches`, {
+    method: "POST",
+    headers: {
+      "Accept": "application/vnd.github.everest-preview+json",
+      "Authorization": `token ${GH_TOKEN}`
+    },
+    body: JSON.stringify(payload)
+  });
+
+  if (res.ok) {
+    el("orderStatus").classList.remove("hidden");
+    el("orderStatus").textContent = "سفارش ثبت شد ✅ لطفا کد پیگیری رو از بخش Issues در گیت‌هاب ببینید.";
+  } else {
+    el("orderStatus").classList.remove("hidden");
+    el("orderStatus").textContent = "❌ خطا در ثبت سفارش.";
+  }
+});
+
 
 // ------------------- کمک‌تابع‌ها -------------------
 function el(id){return document.getElementById(id)}
