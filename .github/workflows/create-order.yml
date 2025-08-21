@@ -1,1 +1,20 @@
 
+name: Create Order Issue
+
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types: [new-order]
+
+jobs:
+  create-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create GitHub Issue
+        uses: peter-evans/create-issue-from-file@v4
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          repository: USERNAME/orders-db
+          title: "سفارش جدید"
+          content-filepath: ./order.txt
+          labels: order
