@@ -1,8 +1,6 @@
-
 name: Create Order Issue
 
 on:
-  workflow_dispatch:
   repository_dispatch:
     types: [new-order]
 
@@ -11,10 +9,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Create GitHub Issue
-        uses: peter-evans/create-issue-from-file@v4
+        uses: actions/github-script@v7
         with:
-          token: ${{ secrets.GH_TOKEN }}
-          repository: USERNAME/orders-db
-          title: "سفارش جدید"
-          content-filepath: ./order.txt
-          labels: order
+          github-token: ${{ secrets.GH_TOKEN }}
+          script: |
+            const payload = context.payload.client_payload
+            const issueTitle = `سفارش ${payload.product} از ${payload.username}`
+            const issueBody = `**کاربر:** ${payload.username}\n**محصول:** ${payload.product}\n**قیمت:** ${payload.price}`
+            await github.rest.issues.create({
+              owner: "KingRT-site",
+              repo: "orders-db",
+              title: issueTitle,
+              body: issueBody,
+              labels: ["order"]
+            })
+
