@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KingRT | فروشگاه کلید و رنک</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b0f17;
+      --card:#121826;
+      --muted:#93a0b5;
+      --txt:#e6ecff;
+      --acc:#6e9cff;
+      --acc2:#8a5cff;
+      --ok:#2ecc71;
+      --err:#ff4d4f;
+      --warn:#ffb020;
+      --radius:18px;
+      --shadow:0 10px 35px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.02);
+      --glass:rgba(255,255,255,.06);
+    }
+    *{box-sizing:border-box}
+    html,body{background:linear-gradient(160deg,#0b0f17 0%,#0d1220 60%,#0b0f17 100%);color:var(--txt);font-family:"Vazirmatn",system-ui,Segoe UI,Arial,sans-serif;margin:0}
+    a{color:var(--acc)}
+    .container{max-width:1100px;margin:0 auto;padding:24px}
+    /* HERO */
+    .hero{
+      position:relative;
+      border-radius:calc(var(--radius) + 6px);
+      overflow:hidden;
+      padding:52px 28px;
+      background:
+        radial-gradient(800px 300px at 100% 0%, rgba(142,97,255,.18), transparent 60%),
+        radial-gradient(600px 260px at 0% 100%, rgba(110,156,255,.16), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,0) 50%),
+        var(--card);
+      box-shadow:var(--shadow);
+      isolation:isolate;
+    }
+    .hero::after{
+      content:"";
+      position:absolute;inset:0;
+      background:radial-gradient(1200px 300px at 50% -10%, rgba(110,156,255,.1), transparent 50%);
+      pointer-events:none;z-index:0;
+      filter:blur(8px);
+      opacity:.9;
+      mix-blend-mode:screen;
+      animation:pulse 6s ease-in-out infinite;
+    }
+    @keyframes pulse{0%,100%{opacity:.75}50%{opacity:1}}
+    .hero h1{margin:0 0 8px;font-size:42px;letter-spacing:.2px}
+    .badge{display:inline-flex;gap:8px;align-items:center;background:linear-gradient(135deg,var(--acc),var(--acc2));padding:8px 14px;border-radius:999px;font-weight:700;box-shadow:0 6px 20px rgba(110,156,255,.35);}
+    .hero p{color:var(--muted);max-width:680px;line-height:1.9}
+    .cta{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
+    .btn{
+      background:linear-gradient(135deg,rgba(110,156,255,.2),rgba(138,92,255,.18));
+      border:1px solid rgba(255,255,255,.1);
+      color:var(--txt);padding:12px 16px;border-radius:12px;
+      font-weight:700;cursor:pointer;backdrop-filter:blur(8px);
+      transition:all .2s ease;
+    }
+    .btn:hover{transform:translateY(-1px);border-color:rgba(255,255,255,.25)}
+    .btn.primary{background:linear-gradient(135deg,var(--acc),var(--acc2));box-shadow:0 10px 30px rgba(110,156,255,.35);}
+    /* GRID */
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:22px}
+    .card{background:var(--card);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+    .card h3{margin:0 0 8px}
+    .price{font-size:18px;color:#d6def9;margin:8px 0 14px}
+    .pill{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;background:var(--glass);border:1px solid rgba(255,255,255,.05);color:#d2dbf8;font-size:12px}
+    /* SECTIONS */
+    section{margin-top:36px}
+    .section-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+    .section-title h2{margin:0}
+    /* FORM */
+    .form{display:grid;gap:12px}
+    .row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .input, select, textarea{
+      background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+      color:var(--txt);padding:12px 14px;border-radius:12px;outline:none
+    }
+    .hint{color:var(--muted);font-size:12px}
+    .kbd{font-family:ui-monospace,monospace;background:rgba(255,255,255,.08);border:1px dashed rgba(255,255,255,.15);padding:2px 6px;border-radius:8px}
+    .notice{border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05);padding:10px;border-radius:12px;color:#d5e0ff}
+    .ok{color:var(--ok)} .err{color:var(--err)} .warn{color:var(--warn)}
+    .footer{opacity:.7;margin-top:36px;font-size:13px;text-align:center}
+    .hidden{display:none}
+    .mono{font-family:ui-monospace,monospace}
+    .center{text-align:center}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="hero">
+      <span class="badge">KingRT • فروشگاه رسمی کلید و رنک</span>
+      <h1>خرید سریع کلیدها و رنک‌ها</h1>
+      <p>بدون دردسر، پرداخت کارت‌به‌کارت، تحویل سریع. سفارش‌ها با کد پیگیری ذخیره می‌شن و هر زمان خواستی وضعیت سفارش رو ببین.</p>
+      <div class="cta">
+        <a href="#shop" class="btn primary">رفتن به فروشگاه</a>
+        <a href="#track" class="btn">پیگیری سفارش</a>
+      </div>
+    </div>
+
+    <section id="shop">
+      <div class="section-title">
+        <h2>محصولات KingRT</h2>
+        <span class="pill">بدون کد تخفیف • قیمت ثابت</span>
+      </div>
+      <div class="grid">
+        <div class="card"><h3>VIP Key</h3><div class="price">25,000 تومان</div><div class="hint">کارت پرداخت: <span class="kbd mono" id="card-vip">6037-0000-0000-0001</span></div></div>
+        <div class="card"><h3>Epic Key</h3><div class="price">50,000 تومان</div><div class="hint">کارت پرداخت: <span class="kbd mono">6037-0000-0000-0000</span></div></div>
+        <div class="card"><h3>KingRT Key</h3><div class="price">140,000 تومان</div><div class="hint">کارت پرداخت: <span class="kbd mono">6037-0000-0000-0000</span></div></div>
+        <div class="card"><h3>God Key</h3><div class="price">180,000 تومان</div><div class="hint">کارت پرداخت: <span class="kbd mono">6037-0000-0000-0000</span></div></div>
+        <div class="card"><h3>Spawner Key</h3><div class="price">190,000 تومان</div><div class="hint">کارت پرداخت: <span class="kbd mono">6037-0000-0000-0000</span></div></div>
+		<!-- Ranks -->
+        <div class="card"><h3>VIP Rank</h3><div class="price">50,000 تومان</div><div class="hint">کارت پرداخت: <span class="kbd mono">6037-0000-0000-0000</span></div></div>
+        <div class="card"><h3>MVP Rank</h3><div class="price">75,000 تومان</div><div class="hint">کارت پرداخت: <span class="kbd mono">6037-0000-0000-0000</span></div></div>
+        <div class="card"><h3>King Rank</h3><div class="price">150,000 تومان</div><div class="hint">کارت پرداخت: <span class="kbd mono">6037-0000-0000-0000</span></div></div>
+        <div class="card"><h3>Skipper Rank</h3><div class="price">250,000 تومان</div><div class="hint">کارت پرداخت: <span class="kbd mono">6037-0000-0000-0000</span></div></div>
+        <div class="card"><h3>Sponsor Rank</h3><div class="price">400,000 تومان</div><div class="hint">کارت پرداخت: <span class="kbd mono">6037-0000-0000-0000</span></div></div>
+      </div>
+    </section>
+
+    <section id="buy">
+      <div class="section-title">
+        <h2>فرم خرید</h2>
+        <span class="pill">پس از پرداخت کارت‌به‌کارت، رسید را آپلود کنید</span>
+      </div>
+      <form id="orderForm" class="card form" autocomplete="off">
+        <div class="row">
+          <div>
+            <label>محصول</label>
+            <select id="product" required>
+              <option value="" disabled selected>انتخاب کنید…</option>
+              <option data-price="25000" data-card="6037-0000-0000-0001">VIP Key — 25,000</option>
+              <option data-price="50000" data-card="6037-0000-0000-0000">Epic Key — 50,000</option>
+              <option data-price="140000" data-card="6037-0000-0000-0000">KingRT Key — 140,000</option>
+              <option data-price="180000" data-card="6037-0000-0000-0000">God Key — 180,000</option>
+              <option data-price="190000" data-card="6037-0000-0000-0000">Spawner Key — 190,000</option>
+			  <!-- Ranks -->
+			  <option data-price="50000" data-card="6037-0000-0000-0000">VIP Rank — 50,000</option>
+              <option data-price="75000" data-card="6037-0000-0000-0000">MVP Rank — 75,000</option>
+              <option data-price="150000" data-card="6037-0000-0000-0000">King Rank — 150,000</option>
+              <option data-price="250000" data-card="6037-0000-0000-0000">Skipper Rank — 250,000</option>
+              <option data-price="400000" data-card="6037-0000-0000-0000">Sponsor Rank — 400,000</option>
+            </select>
+          </div>
+          <div>
+            <label>نام کاربری (Minecraft/Discord)</label>
+            <input id="username" class="input" required placeholder="مثلاً KingAli#1234">
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label>شماره کارت مقصد</label>
+            <input id="cardNumber" class="input mono" value="—" readonly>
+            <div class="hint">برای VIP کارت متفاوت نمایش داده می‌شود.</div>
+          </div>
+          <div>
+            <label>مبلغ (تومان)</label>
+            <input id="price" class="input mono" value="—" readonly>
+            <div class="hint">قیمت‌ها ثابت هستند؛ کد تخفیف نداریم.</div>
+          </div>
+        </div>
+
+        <div>
+          <label>آپلود رسید پرداخت (عکس)</label>
+          <input id="receipt" type="file" accept="image/*" class="input" required>
+          <div class="hint">فرمت: JPG/PNG — حداکثر 2MB</div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label>توضیحات</label>
+            <textarea id="note" rows="3" class="input" placeholder="اگر توضیحی دارید بنویسید…"></textarea>
+          </div>
+          <div>
+            <label>راه تماس (اختیاری)</label>
+            <input id="contact" class="input" placeholder="ID دیسکورد/تلگرام یا ایمیل">
+          </div>
+        </div>
+
+        <button class="btn primary" type="submit">ثبت سفارش</button>
+        <div id="orderStatus" class="notice hidden"></div>
+      </form>
+    </section>
+
+    <section id="track">
+      <div class="section-title">
+        <h2>پیگیری سفارش</h2>
+        <span class="pill">کد پیگیری = شماره Issue</span>
+      </div>
+      <form id="trackForm" class="card form">
+        <div class="row">
+          <div>
+            <label>کد پیگیری</label>
+            <input id="trackCode" class="input mono" placeholder="مثلاً 12" required>
+          </div>
+          <div>
+            <label>—</label>
+            <button class="btn" type="submit">جستجو</button>
+          </div>
+        </div>
+        <div id="trackResult" class="notice hidden"></div>
+      </form>
+    </section>
+
+    <p class="footer">© KingRT — همه حقوق محفوظ است.</p>
+  </div>
+
+<script>
+// ------------------- تنظیمات GitHub -------------------
+// ریپوی عمومی بسازید تا پیگیری بدون توکن کار کند.
+const GH_USER = "KingRT-site";
+const GH_REPO = "orders-db"; // ریپویی که سفارش‌ها داخل Issues ذخیره شوند
+const GH_TOKEN = "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"; // ⚠️ برای تست؛ در عمل امن نیست که در کلاینت بگذارید.
+const GH_API_ISSUES = `https://api.github.com/repos/${GH_USER}/${GH_REPO}/issues`;
+
+// ------------------- کمک‌تابع‌ها -------------------
+function el(id){return document.getElementById(id)}
+function toMoney(n){return Number(n).toLocaleString('fa-IR')}
+
+function showStatus(msg, type="ok"){
+  const box = el("orderStatus");
+  box.classList.remove("hidden");
+  box.classList.remove("err","warn","ok");
+  box.classList.add(type);
+  box.innerHTML = msg;
+}
+
+async function fileToBase64(file){
+  if(!file) return null;
+  if(file.size > 2*1024*1024) throw new Error("حجم فایل بیش از 2 مگابایت است.");
+  return await new Promise((res,rej)=>{
+    const r = new FileReader();
+    r.onload = ()=> res(r.result);
+    r.onerror = rej;
+    r.readAsDataURL(file);
+  });
+}
+
+// ------------------- مقداردهی فرم خرید -------------------
+const productSel = el("product");
+productSel.addEventListener("change", e => {
+  const opt = productSel.selectedOptions[0];
+  const price = opt?.dataset?.price || "";
+  const card = opt?.dataset?.card || "—";
+  el("price").value = price ? toMoney(price) : "—";
+  el("cardNumber").value = card;
+});
+
+// ------------------- ارسال سفارش به GitHub Issues -------------------
+el("orderForm").addEventListener("submit", async (e)=>{
+  e.preventDefault();
+  try{
+    const opt = productSel.selectedOptions[0];
+    if(!opt) return showStatus("لطفاً محصول را انتخاب کنید.", "err");
+    const product = opt.textContent.split("—")[0].trim();
+    const price = opt.dataset.price;
+    const card = opt.dataset.card;
+    const username = el("username").value.trim();
+    const note = el("note").value.trim();
+    const contact = el("contact").value.trim();
+    const receiptFile = el("receipt").files[0];
+    const receiptB64 = await fileToBase64(receiptFile);
+
+    // بدنه Issue
+    const body = [
+      `**محصول:** ${product}`,
+      `**قیمت:** ${toMoney(price)} تومان`,
+      `**کارت مقصد:** \`${card}\``,
+      `**کاربر:** ${username}`,
+      contact ? `**تماس:** ${contact}` : "",
+      note ? `**توضیحات:** ${note}` : "",
+      "",
+      "<details><summary>رسید (Base64)</summary>",
+      "",
+      "```",
+      (receiptB64 || "").slice(0, 180000), // جلوگیری از خیلی بزرگ شدن بدنه
+      "```",
+      "",
+      "</details>"
+    ].filter(Boolean).join("\n");
+
+    const payload = {
+      title: `سفارش جدید • ${product} • ${username}`,
+      body,
+      labels: ["order","kingrt"]
+    };
+
+    showStatus("در حال ثبت سفارش…", "warn");
+
+    const res = await fetch(GH_API_ISSUES, {
+      method: "POST",
+      headers: {
+        "Accept": "application/vnd.github+json",
+        "Authorization": `token ${GH_TOKEN}`
+      },
+      body: JSON.stringify(payload)
+    });
+
+    if(!res.ok){
+      const t = await res.text();
+      throw new Error("ثبت سفارش ناموفق بود: " + t);
+    }
+
+    const issue = await res.json();
+    showStatus(`سفارش ثبت شد ✅ — کد پیگیری: <span class="kbd mono">#${issue.number}</span>`, "ok");
+    el("orderForm").reset();
+    el("price").value = "—";
+    el("cardNumber").value = "—";
+
+  }catch(err){
+    showStatus("❌ " + err.message, "err");
+  }
+});
+
+// ------------------- پیگیری سفارش (خواندن Issue) -------------------
+el("trackForm").addEventListener("submit", async (e)=>{
+  e.preventDefault();
+  const num = el("trackCode").value.trim().replace("#","");
+  const box = el("trackResult");
+  box.classList.remove("hidden","err","ok");
+  box.classList.add("warn");
+  box.textContent = "در حال دریافت اطلاعات…";
+
+  try{
+    const res = await fetch(`${GH_API_ISSUES}/${num}`, { headers: { "Accept":"application/vnd.github+json" }});
+    if(!res.ok) throw new Error("پیدا نشد. مطمئن شو ریپو پابلیک است و شماره درست است.");
+    const issue = await res.json();
+    const state = issue.state === "open" ? "باز" : "بسته/انجام شد";
+    box.classList.remove("warn"); box.classList.add("ok");
+    box.innerHTML = `
+      وضعیت: <b>${state}</b><br>
+      عنوان: ${issue.title}<br>
+      برچسب‌ها: ${(issue.labels || []).map(l => typeof l==="string"? l : l.name).join(", ") || "—"}<br>
+      لینک: <a href="${issue.html_url}" target="_blank" rel="noopener">مشاهده در GitHub</a>
+    `;
+  }catch(err){
+    box.classList.remove("warn"); box.classList.add("err");
+    box.textContent = "❌ " + err.message;
+  }
+});
+</script>
+</body>
+</html>
